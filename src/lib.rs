@@ -60,5 +60,7 @@ mod chrono;
 mod duration;
 #[cfg(feature = "serde")]
 mod serde;
+#[cfg(feature = "time_03")]
+mod time_03;
 
 pub use crate::duration::{Duration, ParseDurationError};

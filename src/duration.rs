@@ -24,7 +24,7 @@ pub struct Duration {
 
 impl Duration {
     /// Create a new duration
-    pub fn new(year: f32, month: f32, day: f32, hour: f32, minute: f32, second: f32) -> Self {
+    pub const fn new(year: f32, month: f32, day: f32, hour: f32, minute: f32, second: f32) -> Self {
         Duration {
             year,
             month,
@@ -137,13 +137,10 @@ impl Duration {
 
     /// Parse given string into Duration
     pub fn parse(input: &str) -> Result<Duration, ParseDurationError> {
-        all_consuming(preceded(
-            tag("P"),
-            alt((parse_week_format, parse_basic_format)),
-        ))(input)
-        .finish()
-        .map(|(_, duration)| duration)
-        .map_err(|err| ParseDurationError::new(input, err))
+        all_consuming(preceded(tag("P"), alt((parse_week_format, parse_basic_format))))(input)
+            .finish()
+            .map(|(_, duration)| duration)
+            .map_err(|err| ParseDurationError::new(input, err))
     }
 }
 
@@ -249,10 +246,7 @@ fn parse_basic_format(input: &str) -> IResult<&str, Duration> {
         && minute.is_none()
         && second.is_none()
     {
-        Err(Err::Error(ParseError::from_error_kind(
-            input,
-            ErrorKind::Verify,
-        )))
+        Err(Err::Error(ParseError::from_error_kind(input, ErrorKind::Verify)))
     } else {
         Ok((
             input,
