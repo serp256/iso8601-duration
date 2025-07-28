@@ -27,3 +27,4 @@ time_03 = ["time"]
 
 [dev-dependencies]
 serde_json = "1"
+time = { version = "0.3", features = ["macros"] }

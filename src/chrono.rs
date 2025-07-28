@@ -80,7 +80,7 @@ impl<Tz: TimeZone> Add<Duration> for DateTime<Tz> {
     }
 }
 
-#[test]
+#[cfg(all(test, feature = "chrono"))]
 fn test_chrono() {
     use chrono::Utc;
 
